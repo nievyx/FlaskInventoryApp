@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Item</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Update Item</h1>
+
+     <form action="{{ url_for('.update', id=i.id) }}" method="POST">
+    <fieldset> <legend>Update Item</legend>
+                    Item:
+                <input type="text" name="item" id="item" value="{{ i.item }}"/>
+                    Buy from:
+                <input type="text" name="buy_from" id="buy_from" value="{{i.buy_from}}"/>
+                    <br>
+                    Seller name:
+                <input type="text" name="seller_name" id="seller_name" value="{{i.seller_name}}"/>
+                    Seller's price:
+                <input type="text" name="seller_price" id="seller_price" value="{{i.seller_price}}"/>
+                    <br>
+                    Seller Shipping price:
+                <input type="text" name="seller_shipping" id="seller_shipping" value="{{i.seller_shipping}}"/>
+                    I'm selling on:
+                <input type="text" name="selling_on" id="selling_on" value="{{i.selling_on}}"/>
+                  <br>  My Price:
+                <input type="text" name="my_price" id="my_price" value="{{i.my_price}}"/>
+                    My Shipping:
+                <input type="text" name="my_shipping" id="my_shipping" value="{{i.my_shipping}}"/>
+                <input type="submit" value="Update Item"/>
+            </fieldset>
+    </form>
+</div>
+{% endblock %}
