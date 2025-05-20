@@ -1,79 +1,102 @@
 {% extends 'base.html' %}
 
-{%block head %}
+{% block head %}
 <title>Store Inventory</title>
 {% endblock %}
 
 {% block body %}
-<div class="col-sm-10 offset-sm-1">
-    <h1>Store Inventory</h1>
-   <!-- 4,5,7,8 are floats-->
-    {% if items|length <1 %}
-    <h4>There are no items.</h4>
+<div class="container my-5">
+    <h1 class="mb-4 text-center">Store Inventory</h1>
+
+    {% if items|length < 1 %}
+        <div class="alert alert-info">There are no items.</div>
     {% else %}
-
-    <table class="table-striped table">
-        <thead>
-        <tr>
-            <th>item</th>
-            <th>buy from</th>
-            <th>seller name</th>
-            <th>seller price</th>
-            <th>seller shipping</th>
-            <th>selling on</th>
-            <th>my price</th>
-            <th>my shipping</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for i in items %}
-            <tr>
-                <td>{{ i.item }}</td>
-                <td>{{ i.buy_from }}</td>
-                <td>{{ i.seller_name }}</td>
-                <td>{{ i.seller_price }}</td>
-                <td>{{ i.seller_shipping }}</td>
-                <td>{{ i.selling_on }}</td>
-                <td>{{ i.my_price }}</td>
-                <td>{{ i.my_shipping }}</td>
-                <td>
-                    <a href="{{ url_for('.delete',id=i.id) }}" class="btn btn-sm btn-danger">Delete</a>
-                    <a href="/update/{{i.id}} "class="btn btn-sm btn-warning">Update</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Item</th>
+                        <th>Buy From</th>
+                        <th>Seller Name</th>
+                        <th>Seller Price</th>
+                        <th>Seller Shipping</th>
+                        <th>Selling On</th>
+                        <th>My Price</th>
+                        <th>My Shipping</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in items %}
+                    <tr>
+                        <td>{{ i.item }}</td>
+                        <td>{{ i.buy_from }}</td>
+                        <td>{{ i.seller_name }}</td>
+                        <td>£{{ i.seller_price }}</td>
+                        <td>£{{ i.seller_shipping }}</td>
+                        <td>{{ i.selling_on }}</td>
+                        <td>£{{ i.my_price }}</td>
+                        <td>£{{ i.my_shipping }}</td>
+                        <td>
+                            <a href="{{ url_for('.delete', id=i.id) }}" class="btn btn-sm btn-danger">Delete</a>
+                            <a href="/update/{{ i.id }}" class="btn btn-sm btn-warning">Update</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
-            {% endif %}
+        </div>
+    {% endif %}
 
-    <table>
+    <hr class="my-4">
 
-     </table>
+    <form action="/" method="POST" class="p-4 border rounded bg-light shadow-sm">
+        <fieldset>
+            <legend class="mb-3">Add New Item</legend>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="item" class="form-label">Item</label>
+                    <input type="text" class="form-control" name="item" id="item" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="buy_from" class="form-label">Buy From</label>
+                    <input type="text" class="form-control" name="buy_from" id="buy_from">
+                </div>
+            </div>
 
-            <form action="/" method="POST">
-    <fieldset> <legend>Add one</legend>
-                    Item:
-                <input type="text" name="item" id="item"/>
-                    Buy from:
-                <input type="text" name="buy_from" id="buy_from"/>
-                    <br>
-                    Seller name:
-                <input type="text" name="seller_name" id="seller_name"/>
-                    Seller's price:
-                <input type="text" name="seller_price" id="seller_price"/>
-                    <br>
-                    Seller Shipping price:
-                <input type="text" name="seller_shipping" id="seller_shipping"/>
-                    I'm selling on:
-                <input type="text" name="selling_on" id="selling_on"/>
-                  <br>  My Price:
-                <input type="text" name="my_price" id="my_price"/>
-                    My Shipping:
-                <input type="text" name="my_shipping" id="my_shipping"/>
-                <input type="submit" value="Add Item"/>
-            </fieldset></form>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="seller_name" class="form-label">Seller Name</label>
+                    <input type="text" class="form-control" name="seller_name" id="seller_name">
+                </div>
+                <div class="col-md-3">
+                    <label for="seller_price" class="form-label">Seller Price (£)</label>
+                    <input type="number" step="0.01" class="form-control" name="seller_price" id="seller_price">
+                </div>
+                <div class="col-md-3">
+                    <label for="seller_shipping" class="form-label">Seller Shipping (£)</label>
+                    <input type="number" step="0.01" class="form-control" name="seller_shipping" id="seller_shipping">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="selling_on" class="form-label">Selling On</label>
+                    <input type="text" class="form-control" name="selling_on" id="selling_on">
+                </div>
+                <div class="col-md-3">
+                    <label for="my_price" class="form-label">My Price (£)</label>
+                    <input type="number" step="0.01" class="form-control" name="my_price" id="my_price">
+                </div>
+                <div class="col-md-3">
+                    <label for="my_shipping" class="form-label">My Shipping (£)</label>
+                    <input type="number" step="0.01" class="form-control" name="my_shipping" id="my_shipping">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Add Item</button>
+        </fieldset>
+    </form>
 </div>
 {% endblock %}
-
 
