@@ -1,6 +1,6 @@
 # Flask Inventory App
 
-A simple Flask web application to manage store inventory with CRUD (Create, Read, Update, Delete) functionality.  
+A lightweight Flask web application to manage store inventory with CRUD (Create, Read, Update, Delete) functionality.  
 Built with Flask and SQLite for lightweight database management.
 
 ![Demo GIF](assets/demo.gif)
